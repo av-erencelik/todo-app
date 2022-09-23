@@ -1,3 +1,95 @@
-h1 {
-    background-color: red;
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;700;900&display=swap');
+$primary: #48A9A6;
+$secondary: #FFEBAD;
+$black: #02020A;
+$white: #DAD4EF;
+$danger: #EF271B;
+$success: #7CB518;
+
+// general
+*{
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: 'Rubik', sans-serif;
+}
+// header
+header {
+    background-color: $primary;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    align-items: center;
+    .home {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        .fa-bars {
+            transition: all ease 0.5s;
+            &:hover {
+                scale: 1.2;
+                rotate: 360deg;
+                color: $secondary;
+                cursor: pointer;
+            }
+        }
+        #home {
+            --s: 0.1em;  
+            
+            color: #0000;
+            padding-bottom: var(--s);
+            background: 
+                linear-gradient(90deg,$secondary 50%,#000 0) calc(100% - var(--_p,0%))/200% 100%,
+                linear-gradient($secondary 0 0) 0% 100%/var(--_p,0%) var(--s) no-repeat;
+            -webkit-background-clip: text,padding-box;
+                    background-clip: text,padding-box;
+            transition: 0.5s;
+        }
+        #home:hover {
+            cursor: pointer;
+            --_p: 100%
+        }
+       
+    }
+    .add {
+        padding: 0.5rem;
+        border: 3px solid #000;
+        border-radius: 50%;
+        transition: all 0.3s;
+        &:hover {
+            border-color: $secondary;
+            cursor: pointer;
+            .fa-plus {
+                color: $secondary;
+                transition: all 0.5s;
+            }
+        }
+    }
+    .completed {
+        h2 {
+            --s: 0.1em;   
+            
+            color: #0000;
+            padding-bottom: var(--s);
+            background: 
+                linear-gradient(90deg,$secondary 50%,#000 0) calc(100% - var(--_p,0%))/200% 100%,
+                linear-gradient($secondary 0 0) 0% 100%/var(--_p,0%) var(--s) no-repeat;
+            -webkit-background-clip: text,padding-box;
+                    background-clip: text,padding-box;
+            transition: 0.5s;
+            .fa-check-double {
+                color: #000;
+                transition: all 0.5s;
+            }
+        }
+        h2:hover {
+            cursor: pointer;
+            --_p: 100%;
+            .fa-check-double {
+                color: $secondary;
+            }
+
+        }
+    }
 }
