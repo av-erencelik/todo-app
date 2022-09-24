@@ -18,17 +18,28 @@
         </div>
     </header>
 
-    <aside class="sidebar" id="sidebar">
+    <aside class="sidebar" id="sidebar" style="left: -24rem;">
         <ul>
             <li id="inbox"><i class="fa-solid fa-inbox"></i>Inbox</li>
             <li id="today"><i class="fa-solid fa-calendar-day"></i>Today</li>
-            <li id="myProjects"><i class="fa-solid fa-file-circle-plus"></i>My Projects</li>
+            <li id="myProjects"><i class="fa-solid fa-file-circle-plus"></i>My Projects <span id="updown"><i class="fa-solid fa-circle-chevron-down"></i></span></li>
             <ul id="dropdown-items">
-                <li class="dropdownItem">Project 1</li>
-                <li class="dropdownItem">Project 2</li>
-                <li class="dropdownItem">Project 3</li>
+                <li class="dropdownItem" id="projectForm">+ New Project</li>
             </ul>
         </ul>
     </aside>
+
+
+
+    <div class="modal" id="modal-project">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Add New Project</h3>
+            <form onsubmit="inputProject(event)">
+                <input type="text" placeholder="Project Name" required id="projectName">
+                <button id="submit" type="submit">Submit</button>
+            </form>    
+        </div>
+  </div>    
 </body>
 </html>
