@@ -35,7 +35,6 @@ header {
             transition: all ease 0.5s;
             &:hover {
                 scale: 1.2;
-                rotate: 360deg;
                 color: $secondary;
                 cursor: pointer;
             }
@@ -161,6 +160,24 @@ main {
         flex: 1;
         .display-styles {
             float: right;
+            padding-top: 0.7rem;
+            padding-right: 1rem;
+            display: flex;
+            .fa-list {
+                padding-right: 0.5rem;
+            }
+            .svg-inline--fa {
+                transition: all 0.3s;
+                &:hover {
+                    color: $primary;
+                    cursor: pointer;
+                    scale: 1.1;
+                }
+            }
+            .active {
+                color: $primary;
+                scale: 1.1;
+            }
         }
         .content {
             padding: 2rem;
@@ -172,6 +189,7 @@ main {
             gap: 1rem;
             .card-style {
                 padding: 1rem;
+                max-width: 15rem;
                 border: 2px solid $black;
                 border-radius: 1rem;
                 h3, p {

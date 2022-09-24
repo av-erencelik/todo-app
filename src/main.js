@@ -5,11 +5,12 @@ import '@fortawesome/fontawesome-free/js/regular'
 import '@fortawesome/fontawesome-free/js/brands'
 import {displaySidebar,displayDropdown} from './display'
 import {displayModal} from './modals'
+import {styleCards} from './cardStyling'
+
 // modal variables
 let closeProject = document.getElementById('closeModalProject')
 let modal = document.getElementById("modal-project");
 let btn = document.getElementById("projectForm");
-const card = document.getElementById('modal-card')
 // display dropdown and sidebar variables
 const myProjects = document.getElementById('myProjects')
 const bars = document.getElementById('bars')
@@ -25,4 +26,10 @@ window.onclick = function(event) {
        displayModal(modal)
     }
 }
+// Styling cards 
+const listButton = document.getElementById('list')
+const tableButton = document.getElementById('table') 
+console.log(listButton + tableButton)
+listButton.addEventListener('click',() => styleCards(listButton,tableButton))
+tableButton.addEventListener('click',() => styleCards(tableButton,listButton))
 
