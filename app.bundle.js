@@ -6542,6 +6542,17 @@ var brands = __webpack_require__(858);
 
 
 
+
+const bars = document.getElementById('bars')
+bars.addEventListener('click',displaySidebar)
+function displaySidebar() {
+    const sidebar = document.getElementById('sidebar')
+    if(sidebar.style.width == '0') {
+        sidebar.style.width = '250px';
+    }else {
+        sidebar.style.width = '250px'
+    }
+}
 })();
 
 /******/ })()
