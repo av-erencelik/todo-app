@@ -18,22 +18,66 @@
         </div>
     </header>
 
-    <aside class="sidebar" id="sidebar" style="left: -24rem;">
-        <ul>
-            <li id="inbox"><i class="fa-solid fa-inbox"></i>Inbox</li>
-            <li id="today"><i class="fa-solid fa-calendar-day"></i>Today</li>
-            <li id="myProjects"><i class="fa-solid fa-file-circle-plus"></i>My Projects <span id="updown"><i class="fa-solid fa-circle-chevron-down"></i></span></li>
-            <ul id="dropdown-items">
-                <li class="dropdownItem" id="projectForm">+ New Project</li>
+    <main>
+        <aside class="sidebar" id="sidebar" style="left: -24rem;">
+            <ul>
+                <li id="inbox"><i class="fa-solid fa-inbox"></i>Inbox</li>
+                <li id="today"><i class="fa-solid fa-calendar-day"></i>Today</li>
+                <li id="myProjects"><i class="fa-solid fa-file-circle-plus"></i>My Projects <span id="updown"><i class="fa-solid fa-circle-chevron-down"></i></span></li>
+                <ul id="dropdown-items">
+                    <li class="dropdownItem" id="projectForm">+ New Project</li>
+                </ul>
             </ul>
-        </ul>
-    </aside>
+        </aside>
+        <section id="main-content">
+            <div class="display-styles">
+                <i class="fa-solid fa-list fa-xl"></i>
+                <i class="fa-solid fa-table fa-xl"></i>
+            </div>
+            <div class="content flex" id="content">
+                <div class="card list-style ">
+                    <h3 id="title">My Todo</h3>
+                    <p id="date">24.09.2022</p>
+                    <div class="edits">
+                        <i class="fa-solid fa-pencil"></i>
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        <i class="fa-solid fa-truck-fast"></i>
+                        <i class="fa-solid fa-trash"></i>
+                    </div>
+                    <div class="modal" id="modal-card">
+                        <div class="card-modal-content">
+                            <span class="close" id="closeModalCard">&times;</span>
+                            <div class="modal-container">
+                                <div class="modal-titles">
+                                    <p class="title">Title:</p>
+                                    <p class="description">My Todo</p>
+                                </div>
+                                <div class="modal-titles">
+                                    <p class="title">Description:</p>
+                                    <p class="description">Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</p>
+                                </div>
+                                <div class="modal-titles">
+                                    <p class="title">Date:</p>
+                                    <p class="description">23.09.2022</p>
+                                </div>
+                                <div class="modal-titles">
+                                    <p class="title">Priority:</p>
+                                    <p class="description">Low</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
 
 
 
     <div class="modal" id="modal-project">
         <div class="modal-content">
-            <span class="close">&times;</span>
+            <span class="close" id="closeModalProject">&times;</span>
             <h3>Add New Project</h3>
             <form onsubmit="inputProject(event)">
                 <input type="text" placeholder="Project Name" required id="projectName">
