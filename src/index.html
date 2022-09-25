@@ -36,7 +36,7 @@
                 
             </div>
             <div class="content flex" id="content">
-                <div class="card list-style" id="card"> 
+                <!-- <div class="card list-style" id="card"> 
                     <h3 id="title">My Todo</h3>
                     <p id="date">24.09.2022</p>
                     <div class="edits">
@@ -68,7 +68,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </section>
     </main>
@@ -86,5 +86,38 @@
             </form>    
         </div>
   </div>    
+
+  <div class="modal-add" id="modalAdd">
+    <div class="modalAdd-Content">
+        <span class="close" id="closeModalAdd">&times;</span>
+        <h3>Add New Todo</h3>
+        <form class="addTodo" id="addTodo">
+            <div class="input-group">
+                <label for="inputTitle">Title:</label>
+                <input type="text" id="inputTitle" required>
+            </div>
+            <div class="input-group">
+                <label for="inputDate">Date:</label>
+                <input type="datetime-local" id="inputDate" min="2022-05-05T16:15:23" required>
+            </div>
+            <div class="input-group input-flex">
+                <div class="textarea">
+                    <label for="inputDescription">Description:</label>
+                    <textarea cols="20" rows="6" required id="inputDescription"></textarea>
+                </div>
+                <div class="select-group">
+                    <label for="inputPriority">Priority:</label>
+                    <select id="inputPriority" required>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" id="submitBtn">Submit</button>
+
+        </form>
+    </div>
+  </div>
 </body>
 </html>

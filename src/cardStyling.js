@@ -11,17 +11,17 @@ function cardStyle(content,card) {
     card.classList.add('card-style')
 }
 export function styleCards(buttonActive,buttonNotActive) {
-    console.log(2)
-    buttonActive.classList.add('active')
-    buttonNotActive.classList.remove('active')
     const content = document.getElementById('content')
     const card = document.getElementById('card')
+    if (card == null) {
+        return
+    }
+    buttonActive.classList.add('active')
+    buttonNotActive.classList.remove('active')
     
     if(content.classList.contains('flex')) {
         cardStyle(content,card)
-        console.log(0)
     }else {
         listStyle(content,card)
-        console.log(1)
     }
 }

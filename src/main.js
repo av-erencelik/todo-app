@@ -4,7 +4,7 @@ import '@fortawesome/fontawesome-free/js/solid'
 import '@fortawesome/fontawesome-free/js/regular'
 import '@fortawesome/fontawesome-free/js/brands'
 import {displaySidebar,displayDropdown} from './display'
-import {displayModal} from './modals'
+import {displayModal,displayModalAdd} from './modals'
 import {styleCards} from './cardStyling'
 
 // modal variables
@@ -14,6 +14,10 @@ let btn = document.getElementById("projectForm");
 // display dropdown and sidebar variables
 const myProjects = document.getElementById('myProjects')
 const bars = document.getElementById('bars')
+// modalAdd variables
+let modalAdd = document.getElementById('modalAdd')
+let closeModalAdd = document.getElementById('closeModalAdd')
+let openModalAddBtn = document.getElementById('add')
 // displaying sidebar
 bars.addEventListener('click',displaySidebar)
 // displaying dropdown
@@ -24,6 +28,8 @@ closeProject.onclick =  () => displayModal(modal)
 window.onclick = function(event) {
     if (event.target == modal) {
        displayModal(modal)
+    }else if (event.target == modalAdd) {
+        displayModalAdd(modalAdd)
     }
 }
 // Styling cards 
@@ -32,4 +38,6 @@ const tableButton = document.getElementById('table')
 console.log(listButton + tableButton)
 listButton.addEventListener('click',() => styleCards(listButton,tableButton))
 tableButton.addEventListener('click',() => styleCards(tableButton,listButton))
-
+// modaladd event listener
+openModalAddBtn.onclick = () => displayModalAdd(modalAdd)
+closeModalAdd.onclick = () => displayModalAdd(modalAdd)
