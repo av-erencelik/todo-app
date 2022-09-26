@@ -36,13 +36,14 @@
                 
             </div>
             <div class="content flex" id="content">
-                <!-- <div class="card list-style" id="card"> 
+                 <!-- <div class="card list-style" id="card"> 
                     <h3 id="title">My Todo</h3>
                     <p id="date">24.09.2022</p>
                     <div class="edits">
                         <i class="fa-solid fa-pencil"></i>
                         <i class="fa-solid fa-circle-exclamation"></i>
                         <i class="fa-solid fa-truck-fast"></i>
+                        <i class="fa-solid fa-check-double"></i>
                         <i class="fa-solid fa-trash"></i>
                     </div>
                     <div class="modal" id="modal-card">
@@ -68,7 +69,7 @@
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div>  --> 
             </div>
         </section>
     </main>
@@ -91,7 +92,7 @@
     <div class="modalAdd-Content">
         <span class="close" id="closeModalAdd">&times;</span>
         <h3>Add New Todo</h3>
-        <form class="addTodo" id="addTodo">
+        <form class="addTodo" id="addTodo" onsubmit="inputTodoForm(event)">
             <div class="input-group">
                 <label for="inputTitle">Title:</label>
                 <input type="text" id="inputTitle" required>

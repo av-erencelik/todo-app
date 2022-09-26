@@ -185,11 +185,11 @@ main {
         }
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
+            grid-template-columns: repeat(auto-fit,minmax(17rem,20rem));
             gap: 1rem;
             .card-style {
                 padding: 1rem;
-                max-width: 15rem;
+                max-width: 20rem;
                 border: 2px solid $black;
                 border-radius: 1rem;
                 h3, p {

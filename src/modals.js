@@ -17,6 +17,7 @@ export function displayModalAdd(modalAdd) {
     if(modalAdd.style.display != 'block') {
         modalAdd.style.display = 'block'
         addLocalDate()
+        document.getElementById('submitBtn')
         setTimeout(function() {
             modalAdd.style.opacity = '1'
         }, 100)
@@ -29,7 +30,7 @@ export function displayModalAdd(modalAdd) {
     }
 }
 function addLocalDate() {
-    let currentDate = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss")
+    let currentDate = format(new Date(), "yyyy-MM-dd'T'HH:mm")
     let inputDate = document.getElementById('inputDate')
     inputDate.setAttribute('min', currentDate)
 }

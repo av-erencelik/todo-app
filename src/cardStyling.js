@@ -1,21 +1,23 @@
-function listStyle(content,card) {
+function listStyle(content,cards) {
     content.classList.remove('grid')
     content.classList.add('flex')
-    card.classList.remove('card-style')
-    card.classList.add('list-style')
+    for(let i = 0;i < cards.length;i++) {
+        cards[i].classList.remove('card-style')
+        cards[i].classList.add('list-style')
+    }
+    
 }
-function cardStyle(content,card) {
+function cardStyle(content,cards) {
     content.classList.remove('flex')
     content.classList.add('grid')
-    card.classList.remove('list-style')
-    card.classList.add('card-style')
+    for(let i = 0;i < cards.length;i++) {
+        cards[i].classList.remove('list-style')
+        cards[i].classList.add('card-style')
+    }
 }
 export function styleCards(buttonActive,buttonNotActive) {
     const content = document.getElementById('content')
-    const card = document.getElementById('card')
-    if (card == null) {
-        return
-    }
+    const card = document.querySelectorAll('.card')
     buttonActive.classList.add('active')
     buttonNotActive.classList.remove('active')
     
@@ -23,5 +25,13 @@ export function styleCards(buttonActive,buttonNotActive) {
         cardStyle(content,card)
     }else {
         listStyle(content,card)
+    }
+}
+export function evaluateStyling() {
+    const content = document.getElementById('content')
+    if(content.classList.contains('flex')) {
+        return true
+    }else {
+        return false
     }
 }
