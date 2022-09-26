@@ -97,6 +97,14 @@ header {
 
         }
     }
+    .active {
+        h2 {
+            scale: 1.1;
+            .fa-check-double {
+                scale: 1.1;
+            }
+        }          
+    }
 }
 // sidebar
 aside {
@@ -116,7 +124,9 @@ aside {
             }
         }
         .active {
-            background-color: $secondary;
+            color: $primary;
+            cursor: pointer;
+            background-color: white;
         }
         li{
             padding: 0.5rem 0.5rem;

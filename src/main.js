@@ -7,7 +7,7 @@ import {displaySidebar,displayDropdown} from './display'
 import {displayModal,displayModalAdd} from './modals'
 import {styleCards} from './cardStyling'
 import {inputTodoForm} from './formValidation'
-import { inboxAllTodos, todayTodos } from './Constructor'
+import { completedTodosDOM, inboxAllTodos, todayTodos } from './Constructor'
 // main array
 let form = document.getElementById('addTodo')
 form.onsubmit = (e) => inputTodoForm(e)
@@ -51,3 +51,6 @@ todayBtn.addEventListener('click',todayTodos)
 // inbox button event listener 
 const inboxBtn = document.getElementById('inbox')
 inboxBtn.addEventListener('click', inboxAllTodos)
+// completedBtn event listener 
+const completedBtn = document.getElementById('completed')
+completedBtn.addEventListener('click',completedTodosDOM)

@@ -1,3 +1,4 @@
+
 import {addTodoDOM} from './addTodoDOM'
 import { isDateToday } from './evaluate.JS'
 
@@ -23,12 +24,14 @@ export function todayTodos() {
     let todayTodoArray = isDateToday(input)
     document.getElementById('inbox').classList.remove('active')
     document.getElementById('today').classList.add('active')
+    document.getElementById('completed').classList.remove('active')
     addTodoDOM(todayTodoArray)
 }
 export function inboxAllTodos() {
     addTodoDOM(input)
     document.getElementById('inbox').classList.add('active')
     document.getElementById('today').classList.remove('active')
+    document.getElementById('completed').classList.remove('active')
 }
 
 function completeTodo(i) { 
@@ -42,4 +45,10 @@ function completeTodo(i) {
 export function listenComplete(btn) {
     btn.addEventListener('click',() => completeTodo(btn.getAttribute("data-index-completed")))
     console.log(btn.getAttribute("data-index-completed"))
+}
+export function completedTodosDOM() {
+    addTodoDOM(completedTodos)
+    document.getElementById('completed').classList.add('active')
+    document.getElementById('today').classList.remove('active')
+    document.getElementById('inbox').classList.remove('active')
 }
