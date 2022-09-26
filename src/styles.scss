@@ -115,6 +115,9 @@ aside {
                 cursor: pointer;
             }
         }
+        .active {
+            background-color: $secondary;
+        }
         li{
             padding: 0.5rem 0.5rem;
             transition: all 0.3s;
