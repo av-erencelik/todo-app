@@ -1,4 +1,5 @@
 import { evaluateStyling } from "./cardStyling";
+import { evaluatePriority } from "./evaluate.JS";
 
 
 export function addTodoDOM(input) {
@@ -16,7 +17,7 @@ export function addTodoDOM(input) {
                         <p id="date">${input[i].date}</p>
                         <div class="edits">
                             <i class="fa-solid fa-pencil"></i>
-                            <i class="fa-solid fa-circle-exclamation"></i>
+                            <i class="fa-solid fa-circle-exclamation" data-index-priority="${i}"></i>
                             <i class="fa-solid fa-truck-fast"></i>
                             <i class="fa-solid fa-check-double"></i>
                             <i class="fa-solid fa-trash"></i>
@@ -46,5 +47,7 @@ export function addTodoDOM(input) {
                         </div>
                     </div>`;
             parentElement.insertAdjacentHTML("beforeend", div)
+            evaluatePriority(input[i].priority,i)
+            
     }
 }
