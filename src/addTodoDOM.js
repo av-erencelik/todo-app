@@ -1,5 +1,5 @@
 import { evaluateStyling } from "./cardStyling";
-import { isDateToday } from "./evaluate.JS";
+import { listenComplete } from "./Constructor";
 import { evaluatePriority } from "./evaluate.JS";
 
 
@@ -20,7 +20,7 @@ export function addTodoDOM(input) {
                             <i class="fa-solid fa-pencil"></i>
                             <i class="fa-solid fa-circle-exclamation" data-index-priority="${i}"></i>
                             <i class="fa-solid fa-truck-fast"></i>
-                            <i class="fa-solid fa-check-double"></i>
+                            <div data-index-completed="${i}"><i class="fa-solid fa-check-double"></i></div>
                             <i class="fa-solid fa-trash"></i>
                         </div>
                         <div class="modal" id="modal-card" data-modal="${i}">
@@ -49,6 +49,7 @@ export function addTodoDOM(input) {
                     </div>`;
             parentElement.insertAdjacentHTML("beforeend", div)
             evaluatePriority(input[i].priority,i)
-            
+            let btn = document.querySelector(`[data-index-completed="${i}"]`)    
+            listenComplete(btn)
     }
 }

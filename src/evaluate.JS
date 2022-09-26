@@ -1,6 +1,7 @@
 import { isToday } from "date-fns";
 import { parseISO } from "date-fns";
 
+
 export function evaluatePriority(priority,i) {
     let priortyBtn = document.querySelector(`[data-index-priority="${i}"]`)
     switch (priority) {
@@ -20,3 +21,4 @@ export function isDateToday(input) {
     })
     return result
 }
+
