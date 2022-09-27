@@ -6,11 +6,14 @@ import '@fortawesome/fontawesome-free/js/brands'
 import {displaySidebar,displayDropdown} from './display'
 import {displayModal,displayModalAdd} from './modals'
 import {styleCards} from './cardStyling'
-import {inputTodoForm} from './formValidation'
+import {inputTodoForm, newProject} from './formValidation'
 import { completedTodosDOM, inboxAllTodos, todayTodos } from './Constructor'
 // main array
 let form = document.getElementById('addTodo')
 form.onsubmit = (e) => inputTodoForm(e)
+// new project
+let projectAdd = document.getElementById('projectInput')
+projectAdd.onsubmit = (e) => newProject(e)
 // modal variables
 let closeProject = document.getElementById('closeModalProject')
 let modal = document.getElementById("modal-project");

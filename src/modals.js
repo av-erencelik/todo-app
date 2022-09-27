@@ -11,6 +11,7 @@ export function displayModal(modal) {
         setTimeout(function() {
             modal.style.display = "none";
         }, 600)
+        deleteValuesOfProjectForm()
     }
 }
 export function displayModalAdd(modalAdd) {
@@ -38,5 +39,8 @@ function deleteValuesOfForm() {
     document.getElementById('inputDate').value = ''
     document.getElementById('inputTitle').value = ''
     document.getElementById('inputDescription').value = ''
+    document.getElementById('projectName').value = ''
+}
+function deleteValuesOfProjectForm() {
     document.getElementById('projectName').value = ''
 }

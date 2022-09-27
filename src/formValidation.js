@@ -1,8 +1,11 @@
 import { parseISO } from "date-fns";
 import { format } from "date-fns";
+import { addTodoDOM } from "./addTodoDOM";
 import { todoConstructor } from "./Constructor";
 import { addTodoArray } from "./Constructor";
-import { displayModalAdd } from "./modals";
+import { displayModal, displayModalAdd } from "./modals";
+let projectIndex = 0
+let projects = []
 export function inputTodoForm(e) {
     e.preventDefault()
     let title = document.getElementById('inputTitle').value
@@ -12,6 +15,59 @@ export function inputTodoForm(e) {
     let priority = document.getElementById('inputPriority').value
     let newTodo = new todoConstructor(title,date,description,priority)
     console.log(newTodo)
+    let whichProject = evaluateWhichProject()
+    if(whichProject != undefined) {
+        addNewTodoProjectArray(newTodo,whichProject)
+        addTodoArray(newTodo)
+        displayModalAdd(document.getElementById('modalAdd'))
+        return
+    }
     addTodoArray(newTodo)
     displayModalAdd(document.getElementById('modalAdd'))
+}
+export function newProject(e) {
+    e.preventDefault()
+    let projectName = document.getElementById('projectName').value
+    let dropdownItems = document.getElementById('dropdown-items')
+    let div = `<li class="dropdownItem" id="project${projectIndex}" data-index-project="${projectIndex}">${projectName}</li>`
+    let newProjectArray = []
+    projects.push(newProjectArray)
+    dropdownItems.insertAdjacentHTML("beforeend", div)
+    let button = document.querySelector(`[data-index-project="${projectIndex}"]`)
+    listenProjectButton(button)
+    projectIndex ++
+    displayModal(document.getElementById('modal-project'))
+}
+function evaluateWhichProject() {
+    let allProjects = document.getElementsByClassName('dropdownItem')
+    let isItProject = false
+    let whichProject
+    for(let i = 0;i < allProjects.length; i++) {
+        if(allProjects[i].classList.contains('active')) {
+            isItProject = true
+            whichProject = i - 1
+            break
+        }
+    }
+    return whichProject
+}
+function addNewTodoProjectArray(newTodo,i) {
+    projects[i].push(newTodo)
+    addTodoDOM(projects[i])
+}
+function listenProjectButton(btn) {
+    btn.addEventListener('click', () => projectTodos(btn.getAttribute("data-index-project")))
+    console.log(btn.getAttribute("data-index-project"))
+}
+function projectTodos(indexNumber) {
+    let projectButton = document.querySelector(`[data-index-project="${indexNumber}"]`)
+    let allProjects = document.getElementsByClassName('dropdownItem')
+    for(let i = 0;i < allProjects.length; i++) {
+        allProjects[i].classList.remove('active')
+    }
+    document.getElementById('inbox').classList.remove('active')
+    document.getElementById('completed').classList.remove('active')
+    document.getElementById('today').classList.remove('active')
+    projectButton.classList.add('active')
+    addTodoDOM(projects[indexNumber])
 }

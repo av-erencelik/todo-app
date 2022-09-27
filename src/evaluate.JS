@@ -21,4 +21,10 @@ export function isDateToday(input) {
     })
     return result
 }
+export function isCompleted(completed,i) {
+    let completeButton = document.querySelector(`[data-index-completed="${i}"]`)
+    if(completed == true) {
+        completeButton.classList.add('completedTodo')
+    }
+}
 

@@ -231,6 +231,13 @@ main {
                     .high {
                         color: $danger;
                     }
+                    .completedTodo {
+                        color: #000;
+                        .fa-check-double {
+                            color: $success;
+                        }
+                        
+                    }
                 }
             }
         }
@@ -266,6 +273,13 @@ main {
                     }
                     .high {
                         color: $danger;
+                    }
+                    .completedTodo {
+                        color: #000;
+                        .fa-check-double {
+                            color: $success;
+                        }
+                        
                     }
                 }
             }

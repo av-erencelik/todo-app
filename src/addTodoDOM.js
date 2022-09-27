@@ -1,5 +1,6 @@
 import { evaluateStyling } from "./cardStyling";
 import { listenComplete } from "./Constructor";
+import { isCompleted } from "./evaluate.JS";
 import { evaluatePriority } from "./evaluate.JS";
 
 
@@ -49,6 +50,7 @@ export function addTodoDOM(input) {
                     </div>`;
             parentElement.insertAdjacentHTML("beforeend", div)
             evaluatePriority(input[i].priority,i)
+            isCompleted(input[i].isCompleted,i)
             let btn = document.querySelector(`[data-index-completed="${i}"]`)    
             listenComplete(btn)
     }
