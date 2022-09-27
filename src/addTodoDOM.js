@@ -3,6 +3,7 @@ import { listenComplete } from "./Constructor";
 import { isCompleted } from "./evaluate.JS";
 import { evaluatePriority } from "./evaluate.JS";
 import { listenDeleteButton } from "./Constructor";
+import { listenTodoCards } from "./formValidation";
 
 
 export function addTodoDOM(input) {
@@ -15,8 +16,8 @@ export function addTodoDOM(input) {
         styling = 'card-style'
     }
     for(let i = 0;i < input.length;i++) {
-        let div = `<div class="card ${styling}" id="card" data-index="${i}"> 
-                        <h3 id="title">${input[i].title}</h3>
+        let div = `<div class="card ${styling}" id="card"> 
+                        <h3 id="title" data-index="${i}">${input[i].title}</h3>
                         <p id="date">${input[i].date}</p>
                         <div class="edits">
                             <i class="fa-solid fa-pencil"></i>
@@ -27,8 +28,8 @@ export function addTodoDOM(input) {
                         </div>
                         <div class="modal" id="modal-card" data-modal="${i}">
                             <div class="card-modal-content">
-                                <span class="close" id="closeModalCard">&times;</span>
-                                <div class="modal-container">
+                                <span class="close" id="closeModalCard" data-index-close="${i}">&times;</span>
+                                <div class="modal-container" >
                                     <div class="modal-titles">
                                         <p class="title">Title:</p>
                                         <p class="description">${input[i].title}</p>
@@ -56,5 +57,14 @@ export function addTodoDOM(input) {
             listenComplete(completeBtn)
             let deleteBtn = document.querySelector(`[data-index-delete="${i}"]`)    
             listenDeleteButton(deleteBtn,input)
+            let cardModalBtn = document.querySelector(`[data-index="${i}"]`)  
+            listenTodoCards(cardModalBtn)
+            if(input[i].completeDate != 0) {
+                dateDiv = `<div class="modal-titles">
+                                <p class="title">Complete Date:</p>
+                                <p class="description">${input[i].completeDate}</p>
+                            </div>`;
+                document.querySelector(`data-index-modal-complete="${i}"`).insertAdjacentHTML("beforeend", dateDiv)
+            }
     }
 }

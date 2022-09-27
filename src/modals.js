@@ -44,3 +44,19 @@ function deleteValuesOfForm() {
 function deleteValuesOfProjectForm() {
     document.getElementById('projectName').value = ''
 }
+export function cardDetailsModal(i) {
+    let cardModal = document.querySelector(`[data-modal="${i}"]`)
+    let closeModalCardDetails = document.querySelector(`[data-index-close="${i}"]`)
+    closeModalCardDetails.onclick = () => cardDetailsModal(i)
+    if(cardModal.style.display != 'block') {
+        cardModal.style.display = 'block'
+        setTimeout(function() {
+            cardModal.style.opacity = '1'
+        }, 100)
+    }else {
+        cardModal.style.opacity = '0.01'
+        setTimeout(function() {
+            cardModal.style.display = "none";
+        }, 600)
+    }
+}

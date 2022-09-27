@@ -2,6 +2,7 @@
 import {addTodoDOM} from './addTodoDOM'
 import { isDateToday } from './evaluate.JS'
 import { projects } from './formValidation'
+import { format } from "date-fns";
 
 
 let input = []
@@ -12,6 +13,7 @@ export function todoConstructor(title,date,description,priority) {
     this.description = description
     this.priority = priority
     this.isCompleted = false
+    this.completeDate = 0
 }
 export function addTodoArray(todo) {
     input.push(todo)
@@ -58,6 +60,7 @@ function completeTodo(i) {
         return
     }
     input[i].isCompleted = true
+    input[i].completeDate = format(new Date(), "yyyy-MM-dd HH:mm")
     completedTodos.push(input[i])
     input.splice(i,1)
     addTodoDOM(input)

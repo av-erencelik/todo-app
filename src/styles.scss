@@ -209,6 +209,10 @@ main {
                     text-align: center;
                     padding-bottom: 0.5rem;
                 }
+                h3:hover {
+                    scale: 1.1;
+                    cursor: pointer;
+                }
                 .edits {
                     display: flex;
                     justify-content: space-between;
@@ -252,6 +256,10 @@ main {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+                h3:hover {
+                    scale: 1.1;
+                    cursor: pointer;
+                }
                 .edits {
                     display: flex;
                     gap: 0.2rem;

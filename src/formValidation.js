@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import { addTodoDOM } from "./addTodoDOM";
 import { todoConstructor } from "./Constructor";
 import { addTodoArray } from "./Constructor";
-import { displayModal, displayModalAdd } from "./modals";
+import { cardDetailsModal, displayModal, displayModalAdd } from "./modals";
 let projectIndex = 0
 export let projects = []
 export function inputTodoForm(e) {
@@ -69,4 +69,7 @@ function projectTodos(indexNumber) {
     document.getElementById('today').classList.remove('active')
     projectButton.classList.add('active')
     addTodoDOM(projects[indexNumber])
+}
+export function listenTodoCards(btn) {
+    btn.addEventListener('click', () => cardDetailsModal(btn.getAttribute("data-index")))
 }
