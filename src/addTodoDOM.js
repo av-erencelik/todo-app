@@ -2,6 +2,7 @@ import { evaluateStyling } from "./cardStyling";
 import { listenComplete } from "./Constructor";
 import { isCompleted } from "./evaluate.JS";
 import { evaluatePriority } from "./evaluate.JS";
+import { listenDeleteButton } from "./Constructor";
 
 
 export function addTodoDOM(input) {
@@ -22,7 +23,7 @@ export function addTodoDOM(input) {
                             <i class="fa-solid fa-circle-exclamation" data-index-priority="${i}"></i>
                             <i class="fa-solid fa-truck-fast"></i>
                             <div data-index-completed="${i}"><i class="fa-solid fa-check-double"></i></div>
-                            <i class="fa-solid fa-trash"></i>
+                            <div data-index-delete="${i}"><i class="fa-solid fa-trash"></i></div>
                         </div>
                         <div class="modal" id="modal-card" data-modal="${i}">
                             <div class="card-modal-content">
@@ -51,7 +52,9 @@ export function addTodoDOM(input) {
             parentElement.insertAdjacentHTML("beforeend", div)
             evaluatePriority(input[i].priority,i)
             isCompleted(input[i].isCompleted,i)
-            let btn = document.querySelector(`[data-index-completed="${i}"]`)    
-            listenComplete(btn)
+            let completeBtn = document.querySelector(`[data-index-completed="${i}"]`)    
+            listenComplete(completeBtn)
+            let deleteBtn = document.querySelector(`[data-index-delete="${i}"]`)    
+            listenDeleteButton(deleteBtn,input)
     }
 }

@@ -5,7 +5,7 @@ import { todoConstructor } from "./Constructor";
 import { addTodoArray } from "./Constructor";
 import { displayModal, displayModalAdd } from "./modals";
 let projectIndex = 0
-let projects = []
+export let projects = []
 export function inputTodoForm(e) {
     e.preventDefault()
     let title = document.getElementById('inputTitle').value
@@ -57,7 +57,6 @@ function addNewTodoProjectArray(newTodo,i) {
 }
 function listenProjectButton(btn) {
     btn.addEventListener('click', () => projectTodos(btn.getAttribute("data-index-project")))
-    console.log(btn.getAttribute("data-index-project"))
 }
 function projectTodos(indexNumber) {
     let projectButton = document.querySelector(`[data-index-project="${indexNumber}"]`)
