@@ -54,6 +54,8 @@ todayBtn.addEventListener('click',todayTodos)
 // inbox button event listener 
 const inboxBtn = document.getElementById('inbox')
 inboxBtn.addEventListener('click', inboxAllTodos)
+const homeBtn = document.getElementById('home')
+homeBtn.addEventListener('click',inboxAllTodos)
 // completedBtn event listener 
 const completedBtn = document.getElementById('completed')
 completedBtn.addEventListener('click',completedTodosDOM)
