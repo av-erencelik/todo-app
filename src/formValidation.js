@@ -4,6 +4,8 @@ import { addTodoDOM } from "./addTodoDOM";
 import { todoConstructor } from "./Constructor";
 import { addTodoArray } from "./Constructor";
 import { cardDetailsModal, displayModal, displayModalAdd } from "./modals";
+import { editTodoValues, isItEdit } from "./edit";
+
 let projectIndex = 0
 export let projects = []
 export function inputTodoForm(e) {
@@ -14,7 +16,10 @@ export function inputTodoForm(e) {
     let description = document.getElementById('inputDescription').value
     let priority = document.getElementById('inputPriority').value
     let newTodo = new todoConstructor(title,date,description,priority)
-    console.log(newTodo)
+    if(isItEdit) {
+        editTodoValues(title,date,description,priority)
+        return
+    }
     let whichProject = evaluateWhichProject()
     if(whichProject != undefined) {
         addNewTodoProjectArray(newTodo,whichProject)

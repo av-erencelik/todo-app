@@ -9017,6 +9017,7 @@ function displayModal(modal) {
         setTimeout(function() {
             modal.style.display = "none";
         }, 600)
+        deleteValuesOfProjectForm()
     }
 }
 function displayModalAdd(modalAdd) {
@@ -9045,6 +9046,25 @@ function deleteValuesOfForm() {
     document.getElementById('inputTitle').value = ''
     document.getElementById('inputDescription').value = ''
     document.getElementById('projectName').value = ''
+}
+function deleteValuesOfProjectForm() {
+    document.getElementById('projectName').value = ''
+}
+function cardDetailsModal(i) {
+    let cardModal = document.querySelector(`[data-modal="${i}"]`)
+    let closeModalCardDetails = document.querySelector(`[data-index-close="${i}"]`)
+    closeModalCardDetails.onclick = () => cardDetailsModal(i)
+    if(cardModal.style.display != 'block') {
+        cardModal.style.display = 'block'
+        setTimeout(function() {
+            cardModal.style.opacity = '1'
+        }, 100)
+    }else {
+        cardModal.style.opacity = '0.01'
+        setTimeout(function() {
+            cardModal.style.display = "none";
+        }, 600)
+    }
 }
 ;// CONCATENATED MODULE: ./src/cardStyling.js
 function listStyle(content,cards) {
@@ -9654,9 +9674,159 @@ function isDateToday(input) {
     })
     return result
 }
+function isCompleted(completed,i) {
+    let completeButton = document.querySelector(`[data-index-completed="${i}"]`)
+    if(completed == true) {
+        completeButton.classList.add('completedTodo')
+    }
+}
 
 
+;// CONCATENATED MODULE: ./src/Constructor.js
+
+
+
+
+
+
+
+let input = []
+let completedTodos = []
+function todoConstructor(title,date,description,priority) {
+    this.title = title 
+    this.date = date
+    this.description = description
+    this.priority = priority
+    this.isCompleted = false
+    this.completeDate = 0
+}
+function addTodoArray(todo) {
+    input.push(todo)
+    if(document.getElementById('today').classList.contains('active')) {
+        todayTodos()
+        return
+    }
+    let allProjectsElements = document.getElementsByClassName('dropdownItem')
+    let isProjectActive
+    for(let i = 0; i < allProjectsElements.length; i++) {
+        if(allProjectsElements[i].classList.contains('active')){
+            isProjectActive = true
+        }     
+    }
+    if(isProjectActive) {
+        return
+    }
+    addTodoDOM(input)
+}
+function todayTodos() {
+    let todayTodoArray = isDateToday(input)
+    document.getElementById('inbox').classList.remove('active')
+    document.getElementById('today').classList.add('active')
+    document.getElementById('completed').classList.remove('active')
+    let allProjects = document.getElementsByClassName('dropdownItem')
+    for(let i = 0;i < allProjects.length; i++) {
+        allProjects[i].classList.remove('active')
+    }
+    addTodoDOM(todayTodoArray)
+}
+function inboxAllTodos() {
+    addTodoDOM(input)
+    document.getElementById('inbox').classList.add('active')
+    document.getElementById('today').classList.remove('active')
+    document.getElementById('completed').classList.remove('active')
+    let allProjects = document.getElementsByClassName('dropdownItem')
+    for(let i = 0;i < allProjects.length; i++) {
+        allProjects[i].classList.remove('active')
+    }
+}
+
+function completeTodo(i) { 
+    if(input[i] == undefined) {
+        return
+    }
+    input[i].isCompleted = true
+    input[i].completeDate = format(new Date(), "yyyy-MM-dd HH:mm")
+    completedTodos.push(input[i])
+    input.splice(i,1)
+    addTodoDOM(input)
+}
+function listenComplete(btn) {
+    btn.addEventListener('click',() => completeTodo(btn.getAttribute("data-index-completed")))
+}
+function completedTodosDOM() {
+    addTodoDOM(completedTodos)
+    document.getElementById('completed').classList.add('active')
+    document.getElementById('today').classList.remove('active')
+    document.getElementById('inbox').classList.remove('active')
+    let allProjects = document.getElementsByClassName('dropdownItem')
+    for(let i = 0;i < allProjects.length; i++) {
+        allProjects[i].classList.remove('active')
+    }
+}
+function listenDeleteButton(btn,array) {
+    btn.addEventListener('click', () => deleteTodos(btn.getAttribute("data-index-delete"),array))
+}
+function deleteTodos(i,array) {
+    if(input != array) {
+        for(let i = 0; i < array.length; i++) {
+            for(let k = 0; i < input.length; k++) {
+                if(array[i] == input[k]) {
+                    input.splice(k,1)
+                    break;
+                }
+            }
+        }
+    }else if (input == array && projects != []) {
+        for(let i = 0; i < array.length; i++) {
+            console.log(1)
+            for(let k = 0; k < projects.length; k++) {
+                console.log(projects[k])
+                for(let z = 0; z < projects[k].length; z++) {
+                    console.log(3)
+                    if(projects[k][z] == array[i]) {
+                        projects[k].splice(z,1)
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    console.log(projects)   
+    array.splice(i,1)
+    addTodoDOM(array)
+}
+;// CONCATENATED MODULE: ./src/edit.js
+
+
+
+let isItEdit = false
+let editedObject;
+function editTodos(object) {
+    isItEdit = true
+    editedObject = object
+    displayModalAdd(document.getElementById('modalAdd'))
+    document.getElementById('inputDate').value = `${object.date}`
+    document.getElementById('inputTitle').value = `${object.title}`
+    document.getElementById('inputDescription').value = `${object.description}`
+    document.getElementById('inputPriority').value = `${object.priority}`
+}
+function listenEdit(btn,object) {
+    btn.addEventListener('click', () => editTodos(object))
+}
+function editTodoValues(title,date,description,priority) {
+    editedObject.title = title
+    editedObject.date = date
+    editedObject.description = description
+    editedObject.priority = priority
+    inboxAllTodos()
+    displayModalAdd(document.getElementById('modalAdd'))
+    isItEdit = false
+}
 ;// CONCATENATED MODULE: ./src/addTodoDOM.js
+
+
+
+
 
 
 
@@ -9672,20 +9842,20 @@ function addTodoDOM(input) {
         styling = 'card-style'
     }
     for(let i = 0;i < input.length;i++) {
-        let div = `<div class="card ${styling}" id="card" data-index="${i}"> 
-                        <h3 id="title">${input[i].title}</h3>
+        let div = `<div class="card ${styling}" id="card"> 
+                        <h3 id="title" data-index="${i}">${input[i].title}</h3>
                         <p id="date">${input[i].date}</p>
                         <div class="edits">
-                            <i class="fa-solid fa-pencil"></i>
+                            <div data-index-edit="${i}"><i class="fa-solid fa-pencil"></i></div>
                             <i class="fa-solid fa-circle-exclamation" data-index-priority="${i}"></i>
                             <i class="fa-solid fa-truck-fast"></i>
                             <div data-index-completed="${i}"><i class="fa-solid fa-check-double"></i></div>
-                            <i class="fa-solid fa-trash"></i>
+                            <div data-index-delete="${i}"><i class="fa-solid fa-trash"></i></div>
                         </div>
                         <div class="modal" id="modal-card" data-modal="${i}">
                             <div class="card-modal-content">
-                                <span class="close" id="closeModalCard">&times;</span>
-                                <div class="modal-container">
+                                <span class="close" id="closeModalCard" data-index-close="${i}">&times;</span>
+                                <div class="modal-container" data-index-modal-complete="${i}">
                                     <div class="modal-titles">
                                         <p class="title">Title:</p>
                                         <p class="description">${input[i].title}</p>
@@ -9708,65 +9878,25 @@ function addTodoDOM(input) {
                     </div>`;
             parentElement.insertAdjacentHTML("beforeend", div)
             evaluatePriority(input[i].priority,i)
-            let btn = document.querySelector(`[data-index-completed="${i}"]`)    
-            listenComplete(btn)
+            isCompleted(input[i].isCompleted,i)
+            let completeBtn = document.querySelector(`[data-index-completed="${i}"]`)    
+            listenComplete(completeBtn)
+            let deleteBtn = document.querySelector(`[data-index-delete="${i}"]`)    
+            listenDeleteButton(deleteBtn,input)
+            let cardModalBtn = document.querySelector(`[data-index="${i}"]`)  
+            listenTodoCards(cardModalBtn)
+            let editBtn = document.querySelector(`[data-index-edit="${i}"]`)
+            listenEdit(editBtn,input[i])
+            if(input[i].completeDate != 0) {
+                let dateDiv = `<div class="modal-titles">
+                                <p class="title">Complete Date:</p>
+                                <p class="description">${input[i].completeDate}</p>
+                              </div>`;
+                let containerModal = document.querySelector(`[data-index-modal-complete="${i}"]`)
+                console.log(containerModal)
+                containerModal.insertAdjacentHTML("beforeend", dateDiv)
+            }
     }
-}
-
-;// CONCATENATED MODULE: ./src/Constructor.js
-
-
-
-
-
-let input = []
-let completedTodos = []
-function todoConstructor(title,date,description,priority) {
-    this.title = title 
-    this.date = date
-    this.description = description
-    this.priority = priority
-    this.isCompleted = false
-}
-function addTodoArray(todo) {
-    input.push(todo)
-    if(document.getElementById('today').classList.contains('active')) {
-        todayTodos()
-        return
-    }
-    addTodoDOM(input)
-}
-function todayTodos() {
-    let todayTodoArray = isDateToday(input)
-    document.getElementById('inbox').classList.remove('active')
-    document.getElementById('today').classList.add('active')
-    document.getElementById('completed').classList.remove('active')
-    addTodoDOM(todayTodoArray)
-}
-function inboxAllTodos() {
-    addTodoDOM(input)
-    document.getElementById('inbox').classList.add('active')
-    document.getElementById('today').classList.remove('active')
-    document.getElementById('completed').classList.remove('active')
-}
-
-function completeTodo(i) { 
-    console.log(0)
-    input[i].isCompleted = true
-    completedTodos.push(input[i])
-    console.log(completedTodos)
-    input.splice(i,1)
-    addTodoDOM(input)
-}
-function listenComplete(btn) {
-    btn.addEventListener('click',() => completeTodo(btn.getAttribute("data-index-completed")))
-    console.log(btn.getAttribute("data-index-completed"))
-}
-function completedTodosDOM() {
-    addTodoDOM(completedTodos)
-    document.getElementById('completed').classList.add('active')
-    document.getElementById('today').classList.remove('active')
-    document.getElementById('inbox').classList.remove('active')
 }
 
 ;// CONCATENATED MODULE: ./src/formValidation.js
@@ -9775,6 +9905,11 @@ function completedTodosDOM() {
 
 
 
+
+
+
+let projectIndex = 0
+let projects = []
 function inputTodoForm(e) {
     e.preventDefault()
     let title = document.getElementById('inputTitle').value
@@ -9783,9 +9918,67 @@ function inputTodoForm(e) {
     let description = document.getElementById('inputDescription').value
     let priority = document.getElementById('inputPriority').value
     let newTodo = new todoConstructor(title,date,description,priority)
-    console.log(newTodo)
+    if(isItEdit) {
+        editTodoValues(title,date,description,priority)
+        return
+    }
+    let whichProject = evaluateWhichProject()
+    if(whichProject != undefined) {
+        addNewTodoProjectArray(newTodo,whichProject)
+        addTodoArray(newTodo)
+        displayModalAdd(document.getElementById('modalAdd'))
+        return
+    }
     addTodoArray(newTodo)
     displayModalAdd(document.getElementById('modalAdd'))
+}
+function newProject(e) {
+    e.preventDefault()
+    let projectName = document.getElementById('projectName').value
+    let dropdownItems = document.getElementById('dropdown-items')
+    let div = `<li class="dropdownItem" id="project${projectIndex}" data-index-project="${projectIndex}">${projectName}</li>`
+    let newProjectArray = []
+    projects.push(newProjectArray)
+    dropdownItems.insertAdjacentHTML("beforeend", div)
+    let button = document.querySelector(`[data-index-project="${projectIndex}"]`)
+    listenProjectButton(button)
+    projectIndex ++
+    displayModal(document.getElementById('modal-project'))
+}
+function evaluateWhichProject() {
+    let allProjects = document.getElementsByClassName('dropdownItem')
+    let isItProject = false
+    let whichProject
+    for(let i = 0;i < allProjects.length; i++) {
+        if(allProjects[i].classList.contains('active')) {
+            isItProject = true
+            whichProject = i - 1
+            break
+        }
+    }
+    return whichProject
+}
+function addNewTodoProjectArray(newTodo,i) {
+    projects[i].push(newTodo)
+    addTodoDOM(projects[i])
+}
+function listenProjectButton(btn) {
+    btn.addEventListener('click', () => projectTodos(btn.getAttribute("data-index-project")))
+}
+function projectTodos(indexNumber) {
+    let projectButton = document.querySelector(`[data-index-project="${indexNumber}"]`)
+    let allProjects = document.getElementsByClassName('dropdownItem')
+    for(let i = 0;i < allProjects.length; i++) {
+        allProjects[i].classList.remove('active')
+    }
+    document.getElementById('inbox').classList.remove('active')
+    document.getElementById('completed').classList.remove('active')
+    document.getElementById('today').classList.remove('active')
+    projectButton.classList.add('active')
+    addTodoDOM(projects[indexNumber])
+}
+function listenTodoCards(btn) {
+    btn.addEventListener('click', () => cardDetailsModal(btn.getAttribute("data-index")))
 }
 ;// CONCATENATED MODULE: ./src/main.js
 
@@ -9801,6 +9994,9 @@ function inputTodoForm(e) {
 // main array
 let main_form = document.getElementById('addTodo')
 main_form.onsubmit = (e) => inputTodoForm(e)
+// new project
+let projectAdd = document.getElementById('projectInput')
+projectAdd.onsubmit = (e) => newProject(e)
 // modal variables
 let closeProject = document.getElementById('closeModalProject')
 let modal = document.getElementById("modal-project");
@@ -9841,6 +10037,8 @@ todayBtn.addEventListener('click',todayTodos)
 // inbox button event listener 
 const inboxBtn = document.getElementById('inbox')
 inboxBtn.addEventListener('click', inboxAllTodos)
+const homeBtn = document.getElementById('home')
+homeBtn.addEventListener('click',inboxAllTodos)
 // completedBtn event listener 
 const completedBtn = document.getElementById('completed')
 completedBtn.addEventListener('click',completedTodosDOM)
