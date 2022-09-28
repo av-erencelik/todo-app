@@ -1,12 +1,13 @@
 
 import {addTodoDOM} from './addTodoDOM'
-import { isDateToday } from './evaluate.JS'
-import { projects } from './formValidation'
+import { isDateToday } from './evaluate'
+import { addLocalStorageProjectsDom, projectIndex, projects } from './formValidation'
 import { format } from "date-fns";
 
 
-let input = []
-let completedTodos = []
+
+export let input = []
+export let completedTodos = []
 export function todoConstructor(title,date,description,priority) {
     this.title = title 
     this.date = date
@@ -17,6 +18,7 @@ export function todoConstructor(title,date,description,priority) {
 }
 export function addTodoArray(todo) {
     input.push(todo)
+    localStorage.setItem('inbox', JSON.stringify(input))
     if(document.getElementById('today').classList.contains('active')) {
         todayTodos()
         return
@@ -62,7 +64,9 @@ function completeTodo(i) {
     input[i].isCompleted = true
     input[i].completeDate = format(new Date(), "yyyy-MM-dd HH:mm")
     completedTodos.push(input[i])
+    localStorage.setItem('completed', JSON.stringify(input))
     input.splice(i,1)
+    localStorage.setItem('inbox', JSON.stringify(input))
     addTodoDOM(input)
 }
 export function listenComplete(btn) {
@@ -87,6 +91,7 @@ function deleteTodos(i,array) {
             for(let k = 0; i < input.length; k++) {
                 if(array[i] == input[k]) {
                     input.splice(k,1)
+                    localStorage.setItem('inbox', JSON.stringify(input))
                     break;
                 }
             }
@@ -105,8 +110,19 @@ function deleteTodos(i,array) {
                 }
             }
         }
-    }
-    console.log(projects)   
+    }    
     array.splice(i,1)
+    localStorage.setItem('inbox', JSON.stringify(input))
+    localStorage.setItem('projects', JSON.stringify(projects))
+    localStorage.setItem('completed', JSON.stringify(input))
     addTodoDOM(array)
 }
+export function isLocalStorageEmpty() {
+    if(localStorage.getItem("inbox") != null) {
+            input = JSON.parse(localStorage.getItem("inbox"))
+            addTodoDOM(input)
+    }
+    if(localStorage.getItem("completed") != null) {
+            completedTodos = JSON.parse(localStorage.getItem("completed"))
+    }
+}    

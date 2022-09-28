@@ -1,7 +1,7 @@
 import { evaluateStyling } from "./cardStyling";
 import { listenComplete } from "./Constructor";
-import { isCompleted } from "./evaluate.JS";
-import { evaluatePriority } from "./evaluate.JS";
+import { isCompleted } from "./evaluate";
+import { evaluatePriority } from "./evaluate.js";
 import { listenDeleteButton } from "./Constructor";
 import { listenTodoCards } from "./formValidation";
 import { listenEdit } from "./edit";

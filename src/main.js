@@ -6,8 +6,8 @@ import '@fortawesome/fontawesome-free/js/brands'
 import {displaySidebar,displayDropdown} from './display'
 import {displayModal,displayModalAdd} from './modals'
 import {styleCards} from './cardStyling'
-import {inputTodoForm, newProject} from './formValidation'
-import { completedTodosDOM, inboxAllTodos, todayTodos } from './Constructor'
+import {inputTodoForm, isLocalEmpty, newProject} from './formValidation'
+import { completedTodosDOM, inboxAllTodos, todayTodos, isLocalStorageEmpty } from './Constructor'
 // main array
 let form = document.getElementById('addTodo')
 form.onsubmit = (e) => inputTodoForm(e)
@@ -59,3 +59,5 @@ homeBtn.addEventListener('click',inboxAllTodos)
 // completedBtn event listener 
 const completedBtn = document.getElementById('completed')
 completedBtn.addEventListener('click',completedTodosDOM)
+isLocalStorageEmpty()
+isLocalEmpty()

@@ -6,8 +6,10 @@ import { addTodoArray } from "./Constructor";
 import { cardDetailsModal, displayModal, displayModalAdd } from "./modals";
 import { editTodoValues, isItEdit } from "./edit";
 
-let projectIndex = 0
+
+export let projectIndex = 0
 export let projects = []
+let projectDomArray = []
 export function inputTodoForm(e) {
     e.preventDefault()
     let title = document.getElementById('inputTitle').value
@@ -35,8 +37,11 @@ export function newProject(e) {
     let projectName = document.getElementById('projectName').value
     let dropdownItems = document.getElementById('dropdown-items')
     let div = `<li class="dropdownItem" id="project${projectIndex}" data-index-project="${projectIndex}">${projectName}</li>`
+    projectDomArray.push(div)
     let newProjectArray = []
     projects.push(newProjectArray)
+    localStorage.setItem("projectDomArray", JSON.stringify(projectDomArray))
+    localStorage.setItem('projects', JSON.stringify(projects))
     dropdownItems.insertAdjacentHTML("beforeend", div)
     let button = document.querySelector(`[data-index-project="${projectIndex}"]`)
     listenProjectButton(button)
@@ -58,6 +63,7 @@ function evaluateWhichProject() {
 }
 function addNewTodoProjectArray(newTodo,i) {
     projects[i].push(newTodo)
+    localStorage.setItem('projects', JSON.stringify(projects))
     addTodoDOM(projects[i])
 }
 function listenProjectButton(btn) {
@@ -77,4 +83,25 @@ function projectTodos(indexNumber) {
 }
 export function listenTodoCards(btn) {
     btn.addEventListener('click', () => cardDetailsModal(btn.getAttribute("data-index")))
+}
+export function addLocalStorageProjectsDom() {
+    projectDomArray = JSON.parse(localStorage.getItem("projectDomArray"))
+    let dropdownItems = document.getElementById('dropdown-items')
+    for(let i = 0; i < projectDomArray.length; i++) {
+        console.log("oldu mu")
+        dropdownItems.insertAdjacentHTML("beforeend", projectDomArray[i])
+        let button = document.querySelector(`[data-index-project="${i}"]`)
+        listenProjectButton(button)
+    }
+}
+export function isLocalEmpty() {
+    if(localStorage.getItem("projects") != null) {
+        projects = JSON.parse(localStorage.getItem("projects"))
+    }
+    if(localStorage.getItem("projectIndex") != null) {
+        projectIndex = JSON.parse(localStorage.getItem(projectIndex))
+    }
+    if(localStorage.getItem("projectDomArray") != null) {
+        addLocalStorageProjectsDom()
+    }
 }
